@@ -11,26 +11,23 @@ import {
   removeCollaborator,
 } from "../controllers/projectController.js";
 
-import checkAuth from "../middleware/checkAuth.js";
+import isAuth from "../middleware/isAuth.js";
 
 const router = express.Router();
 
-router.route("/").get(checkAuth, getProjects).post(checkAuth, newProject);
+router.route("/").get(isAuth, getProjects).post(isAuth, newProject);
+
+router.route("/:id").get(isAuth, getSingleProject).put(isAuth, editProject);
 
 router
   .route("/:id")
-  .get(checkAuth, getSingleProject)
-  .put(checkAuth, editProject);
+  .get(isAuth, getSingleProject)
+  .put(isAuth, editProject)
+  .delete(isAuth, removeProject);
 
 router
-  .route("/:id")
-  .get(checkAuth, getSingleProject)
-  .put(checkAuth, editProject)
-  .delete(checkAuth, removeProject);
-
-router
-  .post("/collaborators", checkAuth, searchCollaborator)
-  .post("/collaborators/:id", checkAuth, addCollaborator)
-  .post("/delete-collaborator/:id", checkAuth, removeCollaborator);
+  .post("/collaborators", isAuth, searchCollaborator)
+  .post("/collaborators/:id", isAuth, addCollaborator)
+  .post("/delete-collaborator/:id", isAuth, removeCollaborator);
 
 export default router;

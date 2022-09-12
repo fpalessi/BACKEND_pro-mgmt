@@ -1,5 +1,3 @@
-// mongodb+srv://fedde:18dejuliO@cluster0.1ic26.mongodb.net/pro-mgmt
-
 import mongoose from "mongoose";
 
 const DBconnect = async () => {

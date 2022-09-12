@@ -1,20 +1,16 @@
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
 
-// Middleware
-const checkAuth = async (req, res, next) => {
+const isAuth = async (req, res, next) => {
   let token;
-
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith("Bearer")
   ) {
     try {
-      // jwt.verify() takes as 1st param the token by itself
       token = req.headers.authorization.split(" ")[1];
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-      // from now on we can use req.user to identify the authentified user (we dont care bout pass, token, etc)
+      // we'll use req.user to identify the authenticated user
       req.user = await User.findById(decoded.id).select(
         "-password -token -confirmed -createdAt -updatedAt -__v"
       );
@@ -29,4 +25,4 @@ const checkAuth = async (req, res, next) => {
   }
   next();
 };
-export default checkAuth;
+export default isAuth;

@@ -1,8 +1,7 @@
 import nodemailer from "nodemailer";
-// Función que va a enviar el email
+
 export const emailRegister = async (data) => {
-  const { email, name, token } = data;
-  //todo pasar a .env
+  const { email, token } = data;
   const transport = nodemailer.createTransport({
     host: process.env.EMAIL_HOST,
     port: process.env.EMAIL_PORT,
@@ -11,8 +10,6 @@ export const emailRegister = async (data) => {
       pass: process.env.EMAIL_PASS,
     },
   });
-
-  //   Informacion del email
   const info = await transport.sendMail({
     from: '"pro-mgmt", <cuentas@pro-mgmt.com>',
     to: email,
@@ -29,10 +26,9 @@ export const emailRegister = async (data) => {
     `,
   });
 };
-// Función que va a enviar el email
+
 export const emailForgotPassword = async (data) => {
   const { email, token } = data;
-  //TODO: mover hacia variables de entorno
   const transport = nodemailer.createTransport({
     host: process.env.EMAIL_HOST,
     port: process.env.EMAIL_PORT,
@@ -41,8 +37,6 @@ export const emailForgotPassword = async (data) => {
       pass: process.env.EMAIL_PASS,
     },
   });
-
-  //   Informacion del email
   const info = await transport.sendMail({
     from: '"pro-mgmt", <cuentas@pro-mgmtit.com>',
     to: email,

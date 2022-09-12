@@ -8,17 +8,18 @@ import {
   changeTaskState,
 } from "../controllers/taskController.js";
 
-import checkAuth from "../middleware/checkAuth.js";
+import isAuth from "../middleware/isAuth.js";
 
 const router = express.Router();
 
-router.post("/", checkAuth, addTask);
+router.post("/", isAuth, addTask);
+
 router
   .route("/:id")
-  .get(checkAuth, getTask)
-  .put(checkAuth, updateTask)
-  .delete(checkAuth, removeTask);
+  .get(isAuth, getTask)
+  .put(isAuth, updateTask)
+  .delete(isAuth, removeTask);
 
-router.post("/state/:id", checkAuth, changeTaskState);
+router.post("/state/:id", isAuth, changeTaskState);
 
 export default router;

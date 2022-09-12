@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+
 const projectSchema = mongoose.Schema(
   {
     name: {
@@ -20,12 +21,10 @@ const projectSchema = mongoose.Schema(
       trim: true,
       required: true,
     },
-    // Creator is user type, ref: "User"
     creator: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
-    // Tasks is task type, ref: "Task". Array cause >=1
     tasks: [
       {
         type: mongoose.Schema.Types.ObjectId,
@@ -40,7 +39,7 @@ const projectSchema = mongoose.Schema(
     ],
   },
   {
-    timestamps: true, // esto nos crea las columnas de createdAt/updateAt
+    timestamps: true,
   }
 );
 
