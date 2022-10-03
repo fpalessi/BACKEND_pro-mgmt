@@ -39,7 +39,7 @@ userSchema.pre("save", async function (next) {
   }
   const salt = await bcrypt.genSalt(10);
   // this.password -> pass we want to hash, .hash(a,b) a-> string we are hashing, b-> salt
-  this.password = bcrypt.hash(this.password, salt);
+  this.password = await bcrypt.hash(this.password, salt);
 });
 // Using fn declaration (.this) [vs arrow fn]
 userSchema.methods.passwordChecker = async function (formPassword) {
